@@ -1,0 +1,15 @@
+
+<html lang="en">
+<title>Project</title>
+{% include "header.html" %}
+<body>
+      <div class="col-lg-8 col-md-10 mx-auto">
+          <form action="{{ url_for('update', project_id=project.id) }}" enctype="multipart/form-data" method="POST">
+              <input type="file" name="pic">
+              <input type="url" name="url">
+              <input type="submit" value="Upload a file">
+          </form>
+
+      </div>
+</body>
+</html>

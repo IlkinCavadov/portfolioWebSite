@@ -1,0 +1,20 @@
+{% from "bootstrap5/form.html" import render_form %} {% block content %}
+
+<html lang="en">
+{% include "header.html" %}
+<body>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <p style="color:red">{{ message }}</p>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {{render_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+      </div>
+</body>
+</html>
+{% endblock %}
