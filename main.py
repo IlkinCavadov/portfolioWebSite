@@ -41,11 +41,10 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", validators=[DataRequired()])
     submit = SubmitField("Log in")
 
-# class CreateProjectFrom(FlaskForm):
-#     image = FileField("Image", validators=[DataRequired()])
-#     image_name = StringField("pic", validators=[DataRequired()])
-#     project_url = StringField("Project Url", validators=[DataRequired(), URL()])
-#     submit = SubmitField("Submit Post")
+class RegisterForm(FlaskForm):
+    email = StringField("Email", validators=[DataRequired()])
+    password = PasswordField("Password", validators=[DataRequired()])
+    submit = SubmitField("Sign Me Up!")
 class Base(DeclarativeBase):
     pass
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI','sqlite:///projects.db')
@@ -102,6 +101,32 @@ def home():
     result = db.session.execute(db.select(ProjectPost))
     projects = result.scalars().all()
     return render_template('index.html', projects=projects, current_year=current_year)
+
+
+@app.route('/register', methods=["GET", "POST"])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        email = form.email.data
+        password = form.password.data
+        result = db.session.execute(db.select(User).where(User.email==email))
+        user = result.scalar()
+        if user:
+            flash("You have already registered, log in instead")
+            return redirect(url_for("login"))
+
+        new_user = User(
+            email=form.email.data,
+            password= form.password.data,
+
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        login_user(new_user)
+        return redirect(url_for("home"))
+
+    return render_template("register.html", form=form, logged_in=current_user.is_authenticated)
+
 @app.route('/image/<int:image_id>')
 def get_img(image_id):
     image = ProjectPost.query.get(image_id)
@@ -123,7 +148,7 @@ def backdoor():
         user = result.scalar()
         if not user:
             flash("The email or password dont exist. Please try again!")
-            redirect(url_for("backdoor"))
+            redirect(url_for("register"))
         elif password != user.password:
             flash('Password incorrect, please try again.')
             return redirect(url_for('backdoor'))
