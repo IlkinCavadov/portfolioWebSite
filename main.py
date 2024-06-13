@@ -148,7 +148,7 @@ def backdoor():
         user = result.scalar()
         if not user:
             flash("The email or password dont exist. Please try again!")
-            redirect(url_for("register"))
+            return redirect(url_for("register"))
         elif password != user.password:
             flash('Password incorrect, please try again.')
             return redirect(url_for('backdoor'))
