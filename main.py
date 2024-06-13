@@ -65,7 +65,7 @@ class User(UserMixin, db.Model):
 
 
 class ProjectPost(db.Model):
-    __tablename__ = "projects"
+    __tablename__ = "project"
     id = Column(Integer, primary_key=True)
     img = Column(Text, unique=True, nullable=False)
     name = Column(Text, nullable=False)
