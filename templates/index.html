@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+
     <title>Ilkin Javadov</title>
 
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
@@ -15,14 +16,48 @@
 
     <!-- MAIN STYLE -->
     <link rel="stylesheet" href="static/css/tooplate-style.css">
-    
-<!--
 
-T
+      <style>
+.project-info {
+  position: relative;
 
-https://www.tooplate.com/view/2115-marvel
+}
 
--->
+.img-fluid {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.project-info:hover .image {
+  opacity: 0.3;
+}
+
+.project-info:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: #5BCDF8;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+</style>
   </head>
   <body>
 
@@ -52,11 +87,6 @@ https://www.tooplate.com/view/2115-marvel
                     <li class="nav-item">
                         <a href="#contact" class="nav-link"><span data-hover="Contact">Contact</span></a>
                     </li>
-                    {% if current_user.id == 1: %}
-                    <li class="nav-item">
-                        <a href="{{url_for('add_project')}}" class="nav-link"><span data-hover="Add">Add project</span></a>
-                    </li>
-                    {% endif %}
                 </ul>
 
                 <ul class="navbar-nav ml-lg-auto">
@@ -65,12 +95,7 @@ https://www.tooplate.com/view/2115-marvel
                         <i class="color-mode-icon"></i>
                         Color mode
                       </div>
-                        {% if current_user.id == 1: %}
-                        <div class="color-mode d-lg-flex justify-content-center align-items-center">
-                        <i class="log-out-icon"></i>
-                        <a href="{{url_for('logout')}}">Logout</a>
-                      </div>
-                        {% endif %}
+
                     </div>
                 </ul>
             </div>
@@ -105,8 +130,8 @@ https://www.tooplate.com/view/2115-marvel
                 </div>
 
                 <div class="col-lg-5 col-md-12 col-12">
-                    <div class="about-image svg" style=" box-shadow: 0 20px 30px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 20%">
-                        <img src="static/images/profile.jpg" style="border-radius: 20%" class="img-fluid" alt="profile">
+                    <div class="about-image svg">
+                        <img src="static/images/profile.JPG" class="img-fluid" alt="profile">
                     </div>
                 </div>
 
@@ -126,17 +151,21 @@ https://www.tooplate.com/view/2115-marvel
                       </div>
 
                       <div class="owl-carousel owl-theme">
-                          {% for project in projects %}
+
                         <div class="item">
-                            {% if current_user.id == 1: %}
-                            <div><a href="{{url_for('delete', project_id=project.id)}}">Delete</a></div>
-                            <div><a href="{{url_for('update', project_id=project.id)}}">Edit</a></div>
-                            {% endif %}
                           <div class="project-info">
-                              <a href="{{project.project_url}}" target="_blank" class="nav-link">
+                              <a href="https://flask-myblog.onrender.com/" target="_blank" class="nav-link">
 
 
-                                  <img src="{{ url_for('get_img', image_id=project.id)}}" class="img-fluid" alt="project image">
+                                  <img src="static/images/project1.png" class="img-fluid" alt="project image">
+                                  <div class="middle">
+                                      <div class="text">
+                                          Blog website with super simple admin panel,
+                                          and rich with functions.
+                                          Created with Python, CKeditor, Postrsql, Java Script,
+                                          and some front-end skills.
+                                      </div>
+                                  </div>
 
                               </a>
 
@@ -144,7 +173,27 @@ https://www.tooplate.com/view/2115-marvel
                           </div>
 
                         </div>
-                          {% endfor %}
+
+
+
+                           <div class="item">
+
+                          <div class="project-info">
+                              <a href="https://github.com/IlkinCavadov/watermark_to_picture.git" target="_blank" class="nav-link">
+                                  <img src="static/images/project2.png" class="img-fluid" alt="project image">
+                                  <div class="middle">
+                                      <div class="text">
+                                      My Watermarking Picture GUI program.
+                                      Created with Python, TKinter, Matplotlib, Pillow.
+                                          All repository you can see by clicking
+                                      </div>
+                                  </div>
+                              </a>
+
+
+                          </div>
+
+                        </div>
 
                       </div>
 
@@ -262,6 +311,8 @@ https://www.tooplate.com/view/2115-marvel
 
                      <li><a href="https://www.linkedin.com/in/ilkin-javadov-464552300/" target="_blank" data-toggle="tooltip" data-placement="left" title="Linkedin"><i class="fa-brands fa-linkedin-in" style="color: #ffffff;"></i></a></li>
                      <li><a href="https://www.instagram.com/ilkinjavadof/" target="_blank" data-toggle="tooltip" data-placement="left" title="Instagram"><i class="fa-brands fa-instagram" style="color: #ffffff;"></i></a></li>
+                    <li><a href="https://github.com/IlkinCavadov" target="_blank" data-toggle="tooltip" data-placement="left" title="Github"><i class="fa-brands fa-github" style="color: #ffffff;"></i></a></li>
+
                 </ul>
             </div>
           </div>
